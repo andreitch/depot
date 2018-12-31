@@ -9,8 +9,7 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   # GET /products/1.json
-  def show
-  end
+  def show; end
 
   # GET /products/new
   def new
@@ -18,8 +17,7 @@ class ProductsController < ApplicationController
   end
 
   # GET /products/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /products
   # POST /products.json
@@ -30,6 +28,10 @@ class ProductsController < ApplicationController
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
+
+        @products = Product.all
+        ActionCable.server.broadcast 'products',
+                                     html: render_to_string('store/index', layout: false)
       else
         puts @product.errors.full_messages
         format.html { render :new }

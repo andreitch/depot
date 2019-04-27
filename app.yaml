@@ -1,0 +1,14 @@
+entrypoint: bundle exec rackup --port $PORT
+env: flex
+runtime: ruby
+
+env_variables:
+  SECRET_KEY_BASE: 2818a4d6b3d052c55cf3169e442ca212041b83fcb17bce07bdd27212cd7196a5338db8cbe18d40130ec949d5fb840af3689368cc107764d0e2b2fa47f852ea15
+  REDIS_URL: redis://10.0.0.11:6379/1
+  DATABASE_CONNECTION_NAME: /cloudsql/depot-238813:us-west2:depot-cloudmysql-instance
+
+network:
+  name: default
+
+beta_settings:
+  cloud_sql_instances: depot-238813:us-west2:depot-cloudmysql-instance

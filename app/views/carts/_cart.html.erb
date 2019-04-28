@@ -1,7 +1,7 @@
 <article>
-  <% if notice %>
-    <aside id="notice"><%= notice %></aside>
-  <% end %>
+  <%# if notice %>
+<!--    <aside id="notice"><%#= notice %></aside>-->
+  <%# end %>
   <h2>Your Cart</h2>
   <table>
     <%= render(cart.line_items) %>
@@ -13,6 +13,7 @@
     </tfoot>
   </table>
   <%= button_to 'Empty cart', cart,
+                remote: true,
                 method: :delete,
                 data: {confirm: 'Are you sure?'} %>
 </article>

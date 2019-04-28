@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
         @products = Product.all
         ActionCable.server.broadcast 'products',
-                                     html: render_to_string('store/index', layout: false)
+          html: render_to_string('store/index', layout: false, assigns: { current_product: @product })
       else
         format.html { render :edit }
         format.json { render json: @product.errors, status: :unprocessable_entity }

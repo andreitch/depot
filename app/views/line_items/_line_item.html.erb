@@ -1,4 +1,4 @@
-<tr<% if line_item == @current_item %>
+<tr<% if line_item == @current_item or @current_product_id.to_s == line_item.product_id.to_s %>
   class="line-item-highlight"<% end %>>
   <td class="quantity"><%= line_item.quantity %></td>
   <td><%= line_item.product.title %></td>

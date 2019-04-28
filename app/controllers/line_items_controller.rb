@@ -1,11 +1,12 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:create, :index]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   # GET /line_items
   # GET /line_items.json
   def index
+    create if params[:product_id]
     @line_items = LineItem.all
   end
 
@@ -29,7 +30,7 @@ class LineItemsController < ApplicationController
 
     respond_to do |format|
       if @line_item.save
-        format.html { redirect_to store_index_url }
+        format.html { redirect_to store_index_url current_product_id: params[:product_id] }
         format.js   { @current_item = @line_item }
         format.json { render :show, status: :created, location: @line_item }
       else

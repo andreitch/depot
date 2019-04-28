@@ -5,9 +5,12 @@
 <ul class="catalog">
   <% cache @products do %>
     <% @products.each do |product| %>
-      <% cache product do %>
-        <li>
-          <%= image_tag(product.image_url) %>
+      <%# cache product do %>
+        <li<% if product == @current_product %>
+            class="line-item-highlight"<% end %>>
+          <a href="<%= line_items_path(product_id: product) %>" >
+            <%= image_tag(product.image_url) %>
+          </a>
           <h2><%= product.title %></h2>
           <p>
             <%= sanitize(product.description) %>
@@ -18,7 +21,7 @@
                 remote: true %>
           </div>
         </li>
-      <% end %>
+      <%# end %>
     <% end %>
   <% end %>
 </ul>

@@ -1,0 +1,32 @@
+<h1><%= "Who bought #{@product.title}" %></h1>
+
+<table>
+  <% @product.orders.each do |order| %>
+    <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+      <td>
+        <%= link_to "##{order.id} #{order.email}", order %>
+        <p>Shipped to <%= order.address %></p>
+      </td>
+      <td>
+        <table>
+          <tr>
+            <td>Product</td>
+            <td>Quantity</td>
+            <td>Total Price</td>
+          </tr>
+          <% order.line_items.each do |item| %>
+            <tr>
+              <td><%= item.product.title %></td>
+              <td><%= item.quantity %></td>
+              <td><%= number_to_currency item.total_price %></td>
+            </tr>
+          <% end %>
+          <tr>
+            <th colspan="2">Total</th>
+            <th><%= number_to_currency order.line_items.map(&:total_price).sum %></th>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  <% end %>
+</table>
